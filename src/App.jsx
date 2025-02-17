@@ -4,10 +4,12 @@ import Container from './components/Container'
 import Header from './components/Header'
 
 export const DataContext = createContext(null);
+export const BoardContext = createContext(null);
 
 export default function App() {
 
   const [ data, setData ] = useState([]);
+  const [ currentBoardId, setCurrentBoardId ] = useState(0);
 
   useEffect(() => {
     async function getData() {
@@ -21,8 +23,10 @@ export default function App() {
   return (
     <>
       <DataContext.Provider value={{ data, setData }}>
-        <Header />
-        <Container />
+        <BoardContext.Provider value={{ currentBoardId, setCurrentBoardId }}>
+          <Header />
+          <Container />
+        </BoardContext.Provider>
       </DataContext.Provider>
     </>
   )

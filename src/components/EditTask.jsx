@@ -1,4 +1,4 @@
-export default function EditTask(){
+export default function EditTask({ task }){
   return(
     <>
       
