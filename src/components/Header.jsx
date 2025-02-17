@@ -14,6 +14,11 @@ export default function Header() {
     setModal(false);
   }
 
+  function toggleModal() {
+    setModal(!modal);
+    setIsOpen(false);
+  }
+
 
   function toggleTheme() {
     if (theme === 'dark') {
@@ -38,7 +43,7 @@ export default function Header() {
           </svg>
         </button>
         <button>+</button>
-        <button onClick={() => setModal(!modal)}><img src="\images\three-dot.svg" alt="" /></button>
+        <button onClick={toggleModal}><img src="\images\three-dot.svg" alt="" /></button>
       </header>
 
       {modal ? (
