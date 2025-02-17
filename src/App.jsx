@@ -15,11 +15,9 @@ export default function App() {
     async function getData() {
       const data = await fetch('/data/data.json').then(r => r.json());
       setData(data);
-      console.log(data);
     }
     getData();
   }, []);
-
 
 
   return (
