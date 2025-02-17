@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { DataContext } from "../App";
+import { useState, useContext, useEffect } from "react";
+import { DataContext, BoardContext } from "../App";
 
 export default function Header() {
   const { data, setData } = useContext(DataContext);
@@ -7,7 +7,18 @@ export default function Header() {
   const [modal, setModal] = useState(false);
   const [theme, setTheme] = useState('dark');
   const [checked, setChecked] = useState(true);
+  const { currentBoardId, setCurrentBoardId } = useContext(BoardContext);
+  const [currentBoardName, setCurrentBoardName] = useState('');
 
+
+  useEffect(() => {
+    if (data.boards && data.boards.length > 0) {
+      const currentBoard = data.boards.find(board => board.id === currentBoardId);
+      if (currentBoard) {
+        setCurrentBoardName(currentBoard.name);
+      }
+    }
+  }, [currentBoardId, data.boards]);
 
   function toggleMenu() {
     setIsOpen(!isOpen);
@@ -37,7 +48,7 @@ export default function Header() {
       <header>
         <img src="\images\logo.svg" alt="logo" />
         <button onClick={toggleMenu}>
-          <h1>currentBoard</h1>
+          <h1>{currentBoardName}</h1>
           <svg width="9" height="7" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L5 5L9 1" stroke="#635FC7" strokeWidth="2" />
           </svg>
@@ -58,7 +69,7 @@ export default function Header() {
           <h2>All Boards ({data.boards.length})</h2>
           <div className="boards">
             {data.boards.map(board => (
-              <button key={board.id} onClick={() => setCurrentBoard(board.name)}><img src="\images\fluent_board.svg" alt="" /> {board.name}</button>
+              <button key={board.id} onClick={() => setCurrentBoardId(board.id)}><img src="\images\fluent_board.svg" alt="" /> {board.name}</button>
             ))}
           </div>
           <button><img src="\images\fluent_board.svg" alt="" /> +Create New Board</button>
