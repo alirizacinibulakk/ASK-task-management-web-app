@@ -5,10 +5,12 @@ import Header from './components/Header'
 import AddNewTask from './components/AddNewTask';
 
 export const DataContext = createContext(null);
+export const BoardContext = createContext(null);
 
 export default function App() {
 
   const [ data, setData ] = useState([]);
+  const [ currentBoardId, setCurrentBoardId ] = useState(0);
 
   useEffect(() => {
     async function getData() {
@@ -23,9 +25,11 @@ export default function App() {
   return (
     <>
       <DataContext.Provider value={{ data, setData }}>
-        <Header />
-        <AddNewTask data={data} setData={setData} />
+        <BoardContext.Provider value={{ currentBoardId, setCurrentBoardId }}>
+          <Header />
+          <AddNewTask data={data} setData={setData} />
         <Container />
+        </BoardContext.Provider>
       </DataContext.Provider>
     </>
   )
