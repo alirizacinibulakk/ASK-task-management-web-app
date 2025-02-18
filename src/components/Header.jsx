@@ -9,8 +9,7 @@ export default function Header() {
   const [checked, setChecked] = useState(false);
   const { currentBoardId, setCurrentBoardId } = useContext(BoardContext);
   const [currentBoardName, setCurrentBoardName] = useState('');
-  const {modalContent, setModalContent} = useContext(ModalContext);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const {modalContent, setModalContent, isModalOpen, setIsModalOpen} = useContext(ModalContext);
 
 
   useEffect(() => {
@@ -45,11 +44,9 @@ export default function Header() {
     console.log(checked)
   }
 
-  function openModal() {
-    setIsModalOpen(!isModalOpen);
-    if (isModalOpen) {
-    modalContent === 'delete'
-    }
+  function openDeleteModal() {
+    setModalContent("delete");
+    setIsModalOpen(true);
   }
 
   return (
@@ -63,13 +60,16 @@ export default function Header() {
           </svg>
         </button>
         <div className="header-btn-right">
-          <button onClick={() => setModalContent("add")} className="plus-btn"><img src="\images\+.svg" alt=""/></button>
+          <button onClick={() => {
+            setModalContent("add");
+            setIsModalOpen(true);
+          }} className="plus-btn"><img src="\images\+.svg" alt=""/></button>
           <div className="modal-container">
             <button className="dot-btn" onClick={toggleModal}><img src="\images\three-dot.svg" alt="" /></button>
             {modal ? (
               <div className="three-dot-modal">
                 <button>Edit Board</button>
-                <button onClick={() => setModalContent("delete")} >Delete Board</button>
+                <button onClick={openDeleteModal}>Delete Board</button>
               </div>
 
             ) : null}

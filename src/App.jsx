@@ -13,6 +13,7 @@ export default function App() {
   const [ data, setData ] = useState([]);
   const [ currentBoardId, setCurrentBoardId ] = useState(0);
   const [ modalContent, setModalContent ] = useState('');
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
 
   useEffect(() => {
     async function getData() {
@@ -27,9 +28,8 @@ export default function App() {
     <>
       <DataContext.Provider value={{ data, setData }}>
         <BoardContext.Provider value={{ currentBoardId, setCurrentBoardId }}>
-          <ModalContext.Provider value={{ modalContent, setModalContent }}>
+          <ModalContext.Provider value={{ modalContent, setModalContent, isModalOpen, setIsModalOpen }}>
             <Header />
-            <AddNewTask data={data} setData={setData} />
             <Container />
           </ModalContext.Provider>
         </BoardContext.Provider>

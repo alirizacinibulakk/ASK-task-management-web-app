@@ -10,9 +10,8 @@ export default function Container(){
 
   const { data, setData } = useContext(DataContext);
   const { currentBoardId, setCurrentBoardId } = useContext(BoardContext);
-  const { modalContent, setModalContent } = useContext(ModalContext);
+  const { modalContent, setModalContent, isModalOpen, setIsModalOpen } = useContext(ModalContext);
 
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
   const [ selectedTask, setSelectedTask ] = useState(null);
 
   if (!data || data.length === 0) return <p>Loading data...</p>;
@@ -34,8 +33,6 @@ export default function Container(){
       setIsModalOpen(false);
     }
   }
-
-  console.log(modalContent)
 
   return(
     <div className="container">
@@ -68,7 +65,7 @@ export default function Container(){
           {modalContent === 'detail' ? <TaskDetails task={selectedTask} setSelectedTask={setSelectedTask} setModalContent={setModalContent} /> :
            modalContent === 'edit' ? <EditTask task={selectedTask} setSelectedTask={setSelectedTask} setIsModalOpen={setIsModalOpen} /> : 
            modalContent === 'delete' ? <DeleteModal task={selectedTask} setIsModalOpen={setIsModalOpen} /> :
-           modalContent === 'add' ? <AddNewTask data={data} setData={setData} /> :
+           modalContent === 'add' ? <AddNewTask /> :
            modalContent === 'addColumn' ? <AddBoard /> :
            ''}
         </div>

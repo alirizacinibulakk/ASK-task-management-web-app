@@ -17,23 +17,22 @@ export default function EditTask({ task, setSelectedTask, setIsModalOpen }) {
       ...task,
       title: e.target.title.value,
       description: e.target.description.value,
-      subtasks: task.subtasks.length > 0 ? [
+      subtasks: [
         ...task.subtasks.map((sub, index) => ({
-          title: e.target.subtaskTitle[index].value,
+          id: sub.id,
+          title: e.target.subtaskTitle.length > 0 ? e.target.subtaskTitle[index].value : e.target.subtaskTitle.value,
           isCompleted: sub.isCompleted,
         })),
         ...(e.target.newSubtaskTitle
           ? e.target.newSubtaskTitle.length > 0 // Eğer bir dizi ise, map ile dönüştür
             ? Array.from(e.target.newSubtaskTitle).map(sub => ({
+                id: crypto.randomUUID(),
                 title: sub.value,
                 isCompleted: false,
               }))
-            : [{ title: e.target.newSubtaskTitle.value, isCompleted: false }] // Eğer tek eleman ise, doğrudan objeye çevir
+            : [{ id: crypto.randomUUID() ,title: e.target.newSubtaskTitle.value, isCompleted: false }] // Eğer tek eleman ise, doğrudan objeye çevir
           : [])
-      ] : Array.from(e.target.newSubtaskTitle).map(x => ({
-        title: x.value,
-        isCompleted: false
-      })),
+      ]
     };
 
     const updatedData = {
@@ -83,7 +82,7 @@ export default function EditTask({ task, setSelectedTask, setIsModalOpen }) {
   }
 
   function addNewSubtask() {
-    setNewSubtasks([...newSubtasks, { title: "", isCompleted: false }]);
+    setNewSubtasks([...newSubtasks, { id: crypto.randomUUID() ,title: "", isCompleted: false }]);
   }
 
   return (
@@ -101,7 +100,7 @@ export default function EditTask({ task, setSelectedTask, setIsModalOpen }) {
         />
         <div className="editTask-subtasksContainer">
           <h3>Subtasks</h3>
-          {task.subtasks.length > 0 ? (
+          {
             task.subtasks.map((subtask, index) => (
               <div key={index} className="editTask-subtask">
                 <input
@@ -109,7 +108,7 @@ export default function EditTask({ task, setSelectedTask, setIsModalOpen }) {
                   defaultValue={subtask.title}
                   name="subtaskTitle"
                 />
-                <button
+                <button type="button"
                   onClick={() => {
                     const updatedTask = {
                       ...task,
@@ -122,30 +121,7 @@ export default function EditTask({ task, setSelectedTask, setIsModalOpen }) {
                 </button>
               </div>
             ))
-          ) : (
-            <>
-              <div className="editTask-subtask">
-                <input
-                  type="text"
-                  placeholder="e.g. Make coffee"
-                  name="newSubtaskTitle"
-                />
-                <button>
-                  <img src="/images/deleteBtn.svg" alt="" />
-                </button>
-              </div>
-              <div className="editTask-subtask">
-                <input
-                  type="text"
-                  placeholder="e.g. Drink coffee & smile"
-                  name="newSubtaskTitle"
-                />
-                <button>
-                  <img src="/images/deleteBtn.svg" alt="" />
-                </button>
-              </div>
-            </>
-          )}
+          }
           {newSubtasks.map((subtask, index) => (
               <div key={index} className="editTask-subtask">
                 <input type="text" placeholder="New subtask" name="newSubtaskTitle" />
