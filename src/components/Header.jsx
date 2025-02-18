@@ -5,8 +5,8 @@ export default function Header() {
   const { data, setData } = useContext(DataContext);
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useState(false);
-  const [theme, setTheme] = useState('dark');
-  const [checked, setChecked] = useState(true);
+  const [theme, setTheme] = useState('light');
+  const [checked, setChecked] = useState(false);
   const { currentBoardId, setCurrentBoardId } = useContext(BoardContext);
   const [currentBoardName, setCurrentBoardName] = useState('');
 
@@ -47,14 +47,16 @@ export default function Header() {
     <>
       <header>
         <img src="\images\logo.svg" alt="logo" />
-        <button onClick={toggleMenu}>
-          <h1>{currentBoardName}</h1>
+        <button className="toggle-menu" onClick={toggleMenu}>
+          <span>{currentBoardName}</span>
           <svg width="9" height="7" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L5 5L9 1" stroke="#635FC7" strokeWidth="2" />
           </svg>
         </button>
-        <button>+</button>
-        <button onClick={toggleModal}><img src="\images\three-dot.svg" alt="" /></button>
+        <div className="header-btn-left">
+          <button>+</button>
+          <button onClick={toggleModal}><img src="\images\three-dot.svg" alt="" /></button>
+        </div>
       </header>
 
       {modal ? (
@@ -65,28 +67,31 @@ export default function Header() {
       ) : null}
 
       {isOpen ? (
-        <div className="boards-menu">
-          <h2>All Boards ({data.boards.length})</h2>
-          <div className="boards">
-            {data.boards.map(board => (
-              <button key={board.id} onClick={() => setCurrentBoardId(board.id)}><img src="\images\fluent_board.svg" alt="" /> {board.name}</button>
-            ))}
-          </div>
-          <button><img src="\images\fluent_board.svg" alt="" /> +Create New Board</button>
-          <div className="theme">
-            <label className="theme-switch">
-              <img src="\images\light-theme.svg" alt="" />
-              <input
-                id="modeSwitchBtn"
-                className="switch"
-                type="checkbox"
-                checked={checked}
-                onChange={toggleTheme}
-              />
-              <img src="\images\dark-theme.svg" alt="" />
-            </label>
+        <div className="boards-menu-container">
+          <div className="boards-menu">
+            <h2>All Boards ({data.boards.length})</h2>
+            <div className="boards">
+              {data.boards.map(board => (
+                <button key={board.id} onClick={() => setCurrentBoardId(board.id)}><img src="\images\fluent_board.svg" alt="" /> {board.name}</button>
+              ))}
+            </div>
+            <button><img src="\images\fluent_board.svg" alt="" /> +Create New Board</button>
+            <div className="theme">
+              <label className="theme-switch">
+                <img src="\images\light-theme.svg" alt="" />
+                <input
+                  id="modeSwitchBtn"
+                  className="switch"
+                  type="checkbox"
+                  checked={checked}
+                  onChange={toggleTheme}
+                />
+                <img src="\images\dark-theme.svg" alt="" />
+              </label>
+            </div>
           </div>
         </div>
+
       ) : null}
     </>
   );
