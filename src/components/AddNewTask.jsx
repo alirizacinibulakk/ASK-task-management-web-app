@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { DataContext } from "../App";
 
-export default function AddNewTask({ data, setData }) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function AddNewTask() {
+  const { data, setData } = useContext(DataContext);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [subtasks, setSubtasks] = useState([""]);
@@ -49,20 +50,12 @@ export default function AddNewTask({ data, setData }) {
     setTitle("");
     setDescription("");
     setSubtasks([""]);
-    setIsOpen(false);
   }
 
   return (
-    <div>
-      <button onClick={() => setIsOpen(true)} className="btn-add-task">
-        Add Task
-      </button>
-
-      {isOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h2 className="modal-title">Add New Task</h2>
-            <form onSubmit={handleSubmit}>
+    <div className="modal-content">
+      <h2 className="modal-title">Add New Task</h2>
+      <form onSubmit={handleSubmit}>
               <input
                 type="text"
                 placeholder="Title"
@@ -100,17 +93,14 @@ export default function AddNewTask({ data, setData }) {
                 ))}
               </select>
               <div className="form-actions">
-                <button type="button" onClick={() => setIsOpen(false)} className="btn-cancel">
+                <button type="button" className="btn-cancel">
                   Cancel
                 </button>
                 <button type="submit" className="btn-create-task">
                   Create Task
                 </button>
               </div>
-            </form>
-          </div>
-        </div>
-      )}
+      </form>
     </div>
   );
 }
