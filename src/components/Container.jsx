@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { BoardContext, DataContext } from "../App"
+import { BoardContext, DataContext, ModalContext } from "../App"
 import TaskDetails from "./TaskDetails";
 import EditTask from "./EditTask";
 import DeleteModal from "./DeleteModal";
@@ -9,9 +9,9 @@ export default function Container(){
 
   const { data, setData } = useContext(DataContext);
   const { currentBoardId, setCurrentBoardId } = useContext(BoardContext);
+  const { modalContent, setModalContent } = useContext(ModalContext);
 
   const [ isModalOpen, setIsModalOpen ] = useState(false);
-  const [ modalContent, setModalContent ] = useState('');
   const [ selectedTask, setSelectedTask ] = useState(null);
 
   if (!data || data.length === 0) return <p>Loading data...</p>;

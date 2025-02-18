@@ -6,11 +6,13 @@ import AddNewTask from './components/AddNewTask';
 
 export const DataContext = createContext(null);
 export const BoardContext = createContext(null);
+export const ModalContext = createContext(null);
 
 export default function App() {
 
   const [ data, setData ] = useState([]);
   const [ currentBoardId, setCurrentBoardId ] = useState(0);
+  const [ modalContent, setModalContent ] = useState('');
 
   useEffect(() => {
     async function getData() {
@@ -25,9 +27,11 @@ export default function App() {
     <>
       <DataContext.Provider value={{ data, setData }}>
         <BoardContext.Provider value={{ currentBoardId, setCurrentBoardId }}>
-          <Header />
-          <AddNewTask data={data} setData={setData} />
-        <Container />
+          <ModalContext.Provider value={{ modalContent, setModalContent }}>
+            <Header />
+            <AddNewTask data={data} setData={setData} />
+            <Container />
+          </ModalContext.Provider>
         </BoardContext.Provider>
       </DataContext.Provider>
     </>
