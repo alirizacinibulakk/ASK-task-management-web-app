@@ -3,6 +3,7 @@ import { BoardContext, DataContext } from "../App"
 import TaskDetails from "./TaskDetails";
 import EditTask from "./EditTask";
 import DeleteModal from "./DeleteModal";
+import AddBoard from "./AddBoard";
 
 export default function Container(){
 
@@ -23,32 +24,49 @@ export default function Container(){
   }
 
   function addNewColumn(){
-    
+    setModalContent('addColumn');
+    setIsModalOpen(true);
+  }
+
+  function modalCloseClick(e){
+    if(e.target.classList.contains('modal')){
+      setIsModalOpen(false);
+    }
   }
 
   return(
     <div className="container">
-      {data?.boards.find(x => x.id == currentBoardId).columns?.map(x => (
-        <div className="task-column" key={x.id}>
-          <h2><span></span> {x.name}({x.tasks.length})</h2>
-          <div className="task-column-container">
-            {x.tasks.map(x => (
-              <div className="task-column-item" key={x.id} onClick={() => handleClick(x)}>
-                <h3>{x.title}</h3>
-                <p>{x.subtasks.filter(x => x.isCompleted).length} of {x.subtasks.length} subtasks</p>
-              </div>
-            ))}
+      {data?.boards.find(x => x.id == currentBoardId).columns.length === 0 ? 
+        <div className="empty-columns-screen">
+          <p>This board is empty. Create a new column to get started.</p>
+          <button onClick={addNewColumn}>+ Add New Column</button>
+        </div> : 
+        <div className="task-columns-container">
+          {data?.boards.find(x => x.id == currentBoardId).columns?.map(x => (
+          <div className="task-column" key={x.id}>
+            <h2><span></span> {x.name}({x.tasks.length})</h2>
+            <div className="task-column-container">
+              {x.tasks.map(x => (
+                <div className="task-column-item" key={x.id} onClick={() => handleClick(x)}>
+                  <h3>{x.title}</h3>
+                  <p>{x.subtasks.filter(x => x.isCompleted).length} of {x.subtasks.length} subtasks</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          ))}
+          <div onClick={addNewColumn} className="new-column">
+            <p>+ New Column</p>
           </div>
         </div>
-      ))}
-      <div onClick={addNewColumn} className="new-column">
-        <p>+ New Column</p>
-      </div>
+      }
       {isModalOpen && (
-        <div className="modal">
+        <div onClick={modalCloseClick} className="modal">
           {modalContent === 'detail' ? <TaskDetails task={selectedTask} setSelectedTask={setSelectedTask} setModalContent={setModalContent} /> :
            modalContent === 'edit' ? <EditTask task={selectedTask} /> : 
-           modalContent === 'delete' ? <DeleteModal task={selectedTask} setIsModalOpen={setIsModalOpen} /> :''}
+           modalContent === 'delete' ? <DeleteModal task={selectedTask} setIsModalOpen={setIsModalOpen} /> :
+           modalContent === 'addColumn' ? <AddBoard /> :
+           ''}
         </div>
       )}
     </div>

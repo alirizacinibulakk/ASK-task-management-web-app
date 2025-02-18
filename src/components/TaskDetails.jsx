@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { BoardContext, DataContext } from "../App"
 
-export default function TaskDetails({ task, setModalContent, setSelectedTask }){
+export default function TaskDetails({ task, setModalContent, setSelectedTask, modalCloseClick }){
 
   const { data, setData } = useContext(DataContext);
   const { currentBoardId } = useContext(BoardContext);

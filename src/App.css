@@ -135,11 +135,19 @@ header {
 
 /* sude start */
 
+body.dark-mode, body.dark-mode .drop-down-menu-container.open-menu .drop-down-menu, body.dark-mode .task-detail-status.selecting .task-detail-options{
+  background-color: var(--very-dark-gray);
+  box-shadow: 0px 10px 20px 0px #364E7E40;
+}
+
 .container{
   padding: 24px 16px;
+  overflow-x: auto;
+}
+
+.task-columns-container{
   display: flex;
   gap: 24px;
-  overflow-x: auto;
 }
 
 .task-column h2{
@@ -152,6 +160,10 @@ header {
   color: var(--medium-gray);
   margin-bottom: 24px;
   width: 280px;
+}
+
+body.dark-mode .task-column h2, body.dark-mode .task-column-item p{
+  color: var(--medium-gray);
 }
 
 .task-column h2 span{
@@ -181,6 +193,12 @@ header {
   box-shadow: 0px 4px 6px 0px #364E7E1A;
   margin-bottom: 20px;
   width: 280px;
+  cursor: pointer;
+}
+
+body.dark-mode .task-column-item, body.dark-mode .task-details-container, body.dark-mode .delete-modal-container{
+  background-color: var(--dark-gray);
+  box-shadow: 0px 4px 6px 0px #364E7E1A;
 }
 
 .task-column-item:last-child{
@@ -194,6 +212,10 @@ header {
   letter-spacing: 0px;
   color: var(--black);
   margin-bottom: 8px;
+}
+
+body.dark-mode .task-column-item h3, body.dark-mode .task-details-container-top h2, body.dark-mode .task-details-subtask p, body.dark-mode .task-detail-status .task-detail-trigger{
+  color: var(--white);
 }
 
 .task-column-item p{
@@ -213,6 +235,11 @@ header {
   border-radius: 6px;
   margin-top: 39px;
   flex-shrink: 0;
+  cursor: pointer;
+}
+
+body.dark-mode .new-column{
+  background: linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.125) 100%);
 }
 
 .new-column p{
@@ -249,7 +276,7 @@ header {
   padding: 24px;
   border-radius: 6px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  max-width: 90vw;
+  max-width: 480px;
   max-height: 80vh;
 }
 
@@ -271,6 +298,13 @@ header {
 
 .drop-down-menu-container{
   position: relative;
+}
+
+.drop-down-menu-container img{
+  cursor: pointer;
+  padding: 5px 8px;
+  border-radius: 8px;
+  background-color: transparent;
 }
 
 .drop-down-menu-container.open-menu .drop-down-menu{
@@ -296,6 +330,7 @@ header {
   letter-spacing: 0px;
   color: var(--medium-gray);
   margin-bottom: 8px;
+  cursor: pointer;
 }
 
 .drop-down-menu p.delete{
@@ -333,12 +368,18 @@ header {
   padding: 12px 8px 16px 12px;
   background-color: var(--light-gray);
   border-radius: 4px;
+  cursor: pointer;
+}
+
+body.dark-mode .task-details-subtask{
+  background-color: var(--very-dark-gray);
 }
 
 .task-details-subtask label{
   display: flex;
   align-items: center;
   gap: 16px;
+  cursor: pointer;
 }
 
 .task-details-subtask label input{
@@ -352,6 +393,10 @@ header {
   display: inline-block;
   border: 1px solid #828FA33F;
   border-radius: 2px;
+}
+
+body.dark-mode .task-details-subtask label span{
+  background-color: var(--dark-gray);
 }
 
 .task-details-subtask label:has(input:checked) span{
@@ -373,6 +418,10 @@ header {
 .task-details-subtask p.completed{
   color: rgba(0, 1, 18, 0.5);
   text-decoration: line-through;
+}
+
+body.dark-mode .task-details-subtask p.completed{
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .task-detail-status{
@@ -397,6 +446,11 @@ header {
   line-height: 23px;
   letter-spacing: 0px;
   color: var(--black);
+  cursor: pointer;
+}
+
+body.dark-mode .task-detail-status .task-detail-trigger{
+  border: 1px solid var(--lines-dark);
 }
 
 .task-detail-status .task-detail-options{
@@ -432,6 +486,7 @@ header {
   line-height: 23px;
   letter-spacing: 0px;
   color: var(--medium-gray);
+  cursor: pointer;
 }
 
 .delete-modal-container h2{
@@ -474,17 +529,168 @@ header {
   cursor: pointer;
 }
 
+body.dark-mode .delete-modal-buttons button{
+  background-color: var(--white);
+}
+
 .delete-modal-buttons button.delete-btn{
   color: var(--white);
   background-color: var(--red);
+}
+
+body.dark-mode .delete-modal-buttons button.delete-btn{
+  background-color: var(--red);
+}
+
+.empty-columns-screen{
+  width: 100%;
+  height: calc(100dvh - 102px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.empty-columns-screen p{
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22.68px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: var(--medium-gray);
+}
+
+.empty-columns-screen button{
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 18.9px;
+  letter-spacing: 0px;
+  color: var(--white);
+  background-color: var(--main-purple);
+  padding: 15px 18px;
+  border-radius: 24px;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 /* sude end */
 
 @media only screen and (min-width: 768px){
 
+  /* sude start */
+
+  .container{
+    padding: 24px 24px 64px;
+    overflow-x: auto;
+  }
+  
+  .task-details-container, .delete-modal-container {
+    width: 480px;
+    padding: 32px;
+  }
+
+  .task-details-container-top{
+    gap: 24px;
+  }
+
+  .task-details-subtask{
+    padding: 12px;
+  }
+
+  .delete-modal-buttons{
+    flex-direction: row;
+  }
+
+  .delete-modal-buttons button{
+    width: 100%;
+  }
+
+  .empty-columns-screen{
+    height: calc(100dvh - 129px);
+    gap: 24px;
+  }
+
+  /* sude end */
 }
 
 @media only screen and (min-width: 1280px){
 
+  /* sude start */
+
+  .container{
+    padding: 24px 24px 50px;
+    overflow-x: auto;
+  }
+
+  .empty-columns-screen{
+    height: calc(100dvh - 145px);
+    gap: 32px;
+  }
+
+  .empty-columns-screen button:hover{
+    background-color: var(--main-purple-hover);
+    transition: all 0.5s;
+  }
+
+  .task-column-item:hover h3, .new-column:hover p, body.dark-mode .task-column-item:hover h3{
+    color: var(--main-purple);
+    font-weight: 700;
+    transition: all 0.5s;
+  }
+
+  .task-details-subtask:hover, body.dark-mode .task-details-subtask:hover{
+    background-color: rgba(99, 95, 199, 0.25);
+    transition: all 0.5s;
+  }
+
+  .drop-down-menu-container img:hover{
+    background-color: var(--light-gray);
+    transition: all 0.5s;
+  }
+
+  body.dark-mode .drop-down-menu-container img:hover{
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.5s;
+  }
+
+  .task-detail-status .task-detail-trigger:hover, body.dark-mode .task-detail-status .task-detail-trigger:hover{
+    border-color: var(--main-purple);
+    transition: all 0.5s;
+  }
+
+  .task-detail-status .task-detail-options p:hover{
+    font-weight: 700;
+    color: var(--black);
+    transition: all 0.5s;
+  }
+
+  body.dark-mode .task-detail-status .task-detail-options p:hover{
+    font-weight: 700;
+    color: var(--white);
+    transition: all 0.5s;
+  }
+
+  .drop-down-menu p:hover{
+    font-weight: 700;
+    transition: all 0.5s;
+  }
+
+  .delete-modal-buttons button:hover{
+    background-color: rgba(99, 95, 199, 0.25);
+    transition: all 0.5s;
+  }
+
+  body.dark-mode .delete-modal-buttons button:hover{
+    background-color: rgba(255, 255, 255, 0.75);
+    transition: all 0.5s;
+  }
+  
+  .delete-modal-buttons button.delete-btn:hover, body.dark-mode .delete-modal-buttons button.delete-btn:hover{
+    background-color: var(--red-hover);
+    transition: all 0.5s;
+  }
+
+  /* sude end */
 }
