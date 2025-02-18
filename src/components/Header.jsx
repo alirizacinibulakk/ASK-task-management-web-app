@@ -10,6 +10,7 @@ export default function Header() {
   const { currentBoardId, setCurrentBoardId } = useContext(BoardContext);
   const [currentBoardName, setCurrentBoardName] = useState('');
   const {modalContent, setModalContent} = useContext(ModalContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
 
   useEffect(() => {
@@ -44,16 +45,11 @@ export default function Header() {
     console.log(checked)
   }
 
-  function openDeleteModal() {
-    setModalContent(
-      <DeleteModal
-        onClose={() => setModalContent(null)}
-        onDelete={() => {
-          // Delete board logic here
-          setModalContent(null);
-        }}
-      />
-    );
+  function openModal() {
+    setIsModalOpen(!isModalOpen);
+    if (isModalOpen) {
+    modalContent === 'delete'
+    }
   }
 
   return (
@@ -73,7 +69,7 @@ export default function Header() {
             {modal ? (
               <div className="three-dot-modal">
                 <button>Edit Board</button>
-                <button>Delete Board</button>
+                <button onClick={() => setModalContent("delete")} >Delete Board</button>
               </div>
 
             ) : null}
