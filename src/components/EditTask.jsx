@@ -1,10 +1,13 @@
 import { useContext, useState } from "react";
 import { BoardContext, DataContext } from "../App";
 
-export default function EditTask({ task, setSelectedTask }) {
+export default function EditTask({ task, setSelectedTask, setIsModalOpen }) {
   const [isSelecting, setIsSelecting] = useState(false);
   const { data, setData } = useContext(DataContext);
   const { currentBoardId } = useContext(BoardContext);
+
+  const [newSubtasks, setNewSubtasks] = useState([]);
+  const [ prevTask, setPrevTask ] = useState(task);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -14,11 +17,25 @@ export default function EditTask({ task, setSelectedTask }) {
       ...task,
       title: e.target.title.value,
       description: e.target.description.value,
-      subtasks: task.subtasks.map((sub) => ({
-        title: e.target.subtaskTitle.value,
-        isCompleted: sub.isCompleted,
+      subtasks: task.subtasks.length > 0 ? [
+        ...task.subtasks.map((sub, index) => ({
+          title: e.target.subtaskTitle[index].value,
+          isCompleted: sub.isCompleted,
+        })),
+        ...(e.target.newSubtaskTitle
+          ? e.target.newSubtaskTitle.length > 0 // Eğer bir dizi ise, map ile dönüştür
+            ? Array.from(e.target.newSubtaskTitle).map(sub => ({
+                title: sub.value,
+                isCompleted: false,
+              }))
+            : [{ title: e.target.newSubtaskTitle.value, isCompleted: false }] // Eğer tek eleman ise, doğrudan objeye çevir
+          : [])
+      ] : Array.from(e.target.newSubtaskTitle).map(x => ({
+        title: x.value,
+        isCompleted: false
       })),
     };
+
     const updatedData = {
       ...data,
       boards: data.boards.map(board =>
@@ -29,10 +46,16 @@ export default function EditTask({ task, setSelectedTask }) {
                 column.name === updatedTask.status
                   ? {
                       ...column,
-                      tasks: column.tasks.map(t =>
-                        t === task
-                          ? updatedTask : t
-                      ),
+                      tasks: column.tasks.some(t => t.title === updatedTask.title)
+                        ?   column.tasks.map(t =>
+                            t.title === updatedTask.title ? updatedTask : t
+                          )
+                        : [...column.tasks, updatedTask],
+                    }
+                  : column.name === prevTask.status
+                  ? {
+                      ...column,
+                      tasks: column.tasks.filter(t => t.title !== task.title),
                     }
                   : column
               ),
@@ -40,9 +63,9 @@ export default function EditTask({ task, setSelectedTask }) {
           : board
       ),
     };
-    console.log(updatedTask);
-    console.log(updatedData);
+    setNewSubtasks([]);
     setData(updatedData);
+    setIsModalOpen(false);
   }
 
   function triggerMenu() {
@@ -54,8 +77,13 @@ export default function EditTask({ task, setSelectedTask }) {
       ...task,
       status: status,
     };
+    setPrevTask(task)
     setSelectedTask(updatedTask);
     setIsSelecting(false);
+  }
+
+  function addNewSubtask() {
+    setNewSubtasks([...newSubtasks, { title: "", isCompleted: false }]);
   }
 
   return (
@@ -83,8 +111,11 @@ export default function EditTask({ task, setSelectedTask }) {
                 />
                 <button
                   onClick={() => {
-                    task.subtasks.splice(index, 1);
-                    setNewTitle(task.title);
+                    const updatedTask = {
+                      ...task,
+                      subtasks: task.subtasks.filter(sub => sub.title !== subtask.title),
+                    }
+                    setSelectedTask(updatedTask);
                   }}
                 >
                   <img src="/images/deleteBtn.svg" alt="" />
@@ -97,7 +128,7 @@ export default function EditTask({ task, setSelectedTask }) {
                 <input
                   type="text"
                   placeholder="e.g. Make coffee"
-                  name="subtaskTitle"
+                  name="newSubtaskTitle"
                 />
                 <button>
                   <img src="/images/deleteBtn.svg" alt="" />
@@ -107,7 +138,7 @@ export default function EditTask({ task, setSelectedTask }) {
                 <input
                   type="text"
                   placeholder="e.g. Drink coffee & smile"
-                  name="subtaskTitle"
+                  name="newSubtaskTitle"
                 />
                 <button>
                   <img src="/images/deleteBtn.svg" alt="" />
@@ -115,28 +146,42 @@ export default function EditTask({ task, setSelectedTask }) {
               </div>
             </>
           )}
-          <button>+ Add New Subtask</button>
-        </div>
-        <div className={`task-detail-status ${isSelecting ? "selecting" : ""}`}>
-          <h3>Status</h3>
-          <button
-            onClick={triggerMenu}
-            className={`task-detail-trigger ${isSelecting ? "selecting" : ""}`}
-          >
-            {task.status} <img src="/images/arrow-down.svg" alt="Icon" />
-          </button>
-          <div className="task-detail-options">
-            {data.boards
-              .find((x) => x.id == currentBoardId)
-              .columns.map((x) => x.name)
-              .map((x, index) => (
-                <p onClick={() => handleClick(x)} key={index}>
-                  {x}
-                </p>
-              ))}
+          {newSubtasks.map((subtask, index) => (
+              <div key={index} className="editTask-subtask">
+                <input type="text" placeholder="New subtask" name="newSubtaskTitle" />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setNewSubtasks(newSubtasks.filter((_, i) => i !== index))
+                  }
+                >
+                  <img src="/images/deleteBtn.svg" alt="" />
+                </button>
+              </div>
+            ))}
+          <button type="button" onClick={addNewSubtask}>+ Add New Subtask</button>
           </div>
-        </div>
-        <button type="submit">Create Task</button>
+          <div className={`task-detail-status ${isSelecting ? "selecting" : ""}`}>
+            <h3>Status</h3>
+            <button
+              onClick={triggerMenu}
+              className={`task-detail-trigger ${isSelecting ? "selecting" : ""}`}
+              type="button"
+            >
+              {task.status} <img src="/images/arrow-down.svg" alt="Icon" />
+            </button>
+            <div className="task-detail-options">
+              {data.boards
+                .find((x) => x.id == currentBoardId)
+                .columns.map((x) => x.name)
+                .map((x, index) => (
+                  <p onClick={() => handleClick(x)} key={index}>
+                    {x}
+                  </p>
+                ))}
+            </div>
+          </div>
+          <button type="submit">Create Task</button>
       </div>
     </form>
   );

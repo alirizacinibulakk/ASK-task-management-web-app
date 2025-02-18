@@ -63,7 +63,7 @@ export default function Container(){
       {isModalOpen && (
         <div onClick={modalCloseClick} className="modal">
           {modalContent === 'detail' ? <TaskDetails task={selectedTask} setSelectedTask={setSelectedTask} setModalContent={setModalContent} /> :
-           modalContent === 'edit' ? <EditTask task={selectedTask} setSelectedTask={setSelectedTask} /> : 
+           modalContent === 'edit' ? <EditTask task={selectedTask} setSelectedTask={setSelectedTask} setIsModalOpen={setIsModalOpen} /> : 
            modalContent === 'delete' ? <DeleteModal task={selectedTask} setIsModalOpen={setIsModalOpen} /> :
            modalContent === 'addColumn' ? <AddBoard /> :
            ''}
