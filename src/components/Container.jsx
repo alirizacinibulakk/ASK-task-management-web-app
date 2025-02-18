@@ -22,6 +22,10 @@ export default function Container(){
     setModalContent('detail');
   }
 
+  function addNewColumn(){
+    
+  }
+
   return(
     <div className="container">
       {data?.boards.find(x => x.id == currentBoardId).columns?.map(x => (
@@ -37,6 +41,9 @@ export default function Container(){
           </div>
         </div>
       ))}
+      <div onClick={addNewColumn} className="new-column">
+        <p>+ New Column</p>
+      </div>
       {isModalOpen && (
         <div className="modal">
           {modalContent === 'detail' ? <TaskDetails task={selectedTask} setSelectedTask={setSelectedTask} setModalContent={setModalContent} /> :

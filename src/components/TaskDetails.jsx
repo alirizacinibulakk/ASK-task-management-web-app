@@ -78,23 +78,33 @@ export default function TaskDetails({ task, setModalContent, setSelectedTask }){
     };
     setSelectedTask(updatedTask);
     setData(updatedData);
+    setIsSelecting(false)
   }
 
   function editTask(){
     setModalContent('edit');
+    setIsDropDownMenuOpen(false);
   }
 
   function deleteTask(){
     setModalContent('delete');
+    setIsDropDownMenuOpen(false);
   }
 
+  function triggerMenu(){
+    setIsSelecting(!isSelecting);
+  }
+
+  function toggleDropDownMenu(){
+    setIsDropDownMenuOpen(!isDropDownMenuOpen);
+  }
 
   return(
       <div className="task-details-container">
         <div className="task-details-container-top">
           <h2>{task.title}</h2>
           <div className={`drop-down-menu-container ${isDropDownMenuOpen && 'open-menu'}`}>
-            <img src="/images/detail-icon.svg" alt="Icon" />
+            <img onClick={toggleDropDownMenu} src="/images/detail-icon.svg" alt="Icon" />
             <div className="drop-down-menu">
               <p onClick={editTask}>Edit Task</p>
               <p onClick={deleteTask} className="delete">Delete Task</p>
@@ -115,9 +125,9 @@ export default function TaskDetails({ task, setModalContent, setSelectedTask }){
               </div>
             ))}
           </div>
-          <div className="task-detail-status">
+          <div className={`task-detail-status ${isSelecting ? 'selecting' : ''}`}>
             <h3>Current Status</h3>
-            <button className={`task-detail-trigger ${isSelecting ? 'selecting' : ''}`}>{task.status} <img src="/images/arrow-down.svg" alt="Icon" /></button>
+            <button onClick={triggerMenu} className={`task-detail-trigger ${isSelecting ? 'selecting' : ''}`}>{task.status} <img src="/images/arrow-down.svg" alt="Icon" /></button>
             <div className="task-detail-options">
               {data.boards.find(x => x.id == currentBoardId).columns.map(x => x.name).map((x, index) => (
                 <p onClick={() => handleClick(x)} key={index}>{x}</p>
