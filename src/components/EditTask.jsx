@@ -65,6 +65,7 @@ export default function EditTask({ task, setSelectedTask, setIsModalOpen }) {
     setNewSubtasks([]);
     setData(updatedData);
     setIsModalOpen(false);
+    setSelectedTask(null);
   }
 
   function triggerMenu() {
