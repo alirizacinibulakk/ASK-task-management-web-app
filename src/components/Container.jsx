@@ -31,6 +31,7 @@ export default function Container(){
   function modalCloseClick(e){
     if(e.target.classList.contains('modal')){
       setIsModalOpen(false);
+      setSelectedTask(null);
     }
   }
 
@@ -64,7 +65,7 @@ export default function Container(){
         <div onClick={modalCloseClick} className="modal">
           {modalContent === 'detail' ? <TaskDetails task={selectedTask} setSelectedTask={setSelectedTask} setModalContent={setModalContent} /> :
            modalContent === 'edit' ? <EditTask task={selectedTask} setSelectedTask={setSelectedTask} setIsModalOpen={setIsModalOpen} /> : 
-           modalContent === 'delete' ? <DeleteModal task={selectedTask} setIsModalOpen={setIsModalOpen} /> :
+           modalContent === 'delete' ? <DeleteModal task={selectedTask} setSelectedTask={setSelectedTask} setIsModalOpen={setIsModalOpen} /> :
            modalContent === 'add' ? <AddNewTask /> :
            modalContent === 'addColumn' ? <AddBoard /> :
            ''}
