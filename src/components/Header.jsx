@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { DataContext, BoardContext } from "../App";
+import { DataContext, BoardContext,ModalContext } from "../App";
 
 export default function Header() {
   const { data, setData } = useContext(DataContext);
@@ -9,6 +9,7 @@ export default function Header() {
   const [checked, setChecked] = useState(false);
   const { currentBoardId, setCurrentBoardId } = useContext(BoardContext);
   const [currentBoardName, setCurrentBoardName] = useState('');
+  const {modalContent, setModalContent} = useContext(ModalContext);
 
 
   useEffect(() => {
@@ -43,6 +44,18 @@ export default function Header() {
     console.log(checked)
   }
 
+  function openDeleteModal() {
+    setModalContent(
+      <DeleteModal
+        onClose={() => setModalContent(null)}
+        onDelete={() => {
+          // Delete board logic here
+          setModalContent(null);
+        }}
+      />
+    );
+  }
+
   return (
     <>
       <header>
@@ -54,7 +67,7 @@ export default function Header() {
           </svg>
         </button>
         <div className="header-btn-right">
-          <button className="plus-btn"><img src="\images\+.svg" alt=""/></button>
+          <button onClick={() => setModalContent("add")} className="plus-btn"><img src="\images\+.svg" alt=""/></button>
           <div className="modal-container">
             <button className="dot-btn" onClick={toggleModal}><img src="\images\three-dot.svg" alt="" /></button>
             {modal ? (

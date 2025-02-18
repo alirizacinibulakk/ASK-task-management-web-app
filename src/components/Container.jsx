@@ -4,6 +4,7 @@ import TaskDetails from "./TaskDetails";
 import EditTask from "./EditTask";
 import DeleteModal from "./DeleteModal";
 import AddBoard from "./AddBoard";
+import AddNewTask from "./AddNewTask";
 
 export default function Container(){
 
@@ -33,6 +34,8 @@ export default function Container(){
       setIsModalOpen(false);
     }
   }
+
+  console.log(modalContent)
 
   return(
     <div className="container">
@@ -65,6 +68,7 @@ export default function Container(){
           {modalContent === 'detail' ? <TaskDetails task={selectedTask} setSelectedTask={setSelectedTask} setModalContent={setModalContent} /> :
            modalContent === 'edit' ? <EditTask task={selectedTask} setSelectedTask={setSelectedTask} setIsModalOpen={setIsModalOpen} /> : 
            modalContent === 'delete' ? <DeleteModal task={selectedTask} setIsModalOpen={setIsModalOpen} /> :
+           modalContent === 'add' ? <AddNewTask data={data} setData={setData} /> :
            modalContent === 'addColumn' ? <AddBoard /> :
            ''}
         </div>
