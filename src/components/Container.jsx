@@ -5,6 +5,7 @@ import EditTask from "./EditTask";
 import DeleteModal from "./DeleteModal";
 import AddBoard from "./AddBoard";
 import AddNewTask from "./AddNewTask";
+import AddNewColumn from "./AddNewColumn";
 
 export default function Container(){
 
@@ -47,7 +48,7 @@ export default function Container(){
         <div className="task-columns-container">
           {data?.boards.find(x => x.id == currentBoardId).columns?.map(x => (
             <div className="task-column" key={x.id}>
-              <h2><span></span> {x.name}({x.tasks.length})</h2>
+              <h2><span></span> {x.name.toUpperCase()}({x.tasks.length})</h2>
               <div className="task-column-container">
                 {x.tasks.length > 0 ? x.tasks.map(x => (
                   <div className="task-column-item" key={x.id} onClick={() => handleClick(x)}>
@@ -69,7 +70,8 @@ export default function Container(){
            modalContent === 'edit' ? <EditTask task={selectedTask} setSelectedTask={setSelectedTask} setIsModalOpen={setIsModalOpen} /> : 
            modalContent === 'delete' ? <DeleteModal task={selectedTask} setSelectedTask={setSelectedTask} setIsModalOpen={setIsModalOpen} /> :
            modalContent === 'add' ? <AddNewTask /> :
-           modalContent === 'addColumn' ? <AddBoard /> :
+           modalContent === 'addBoard' ? <AddBoard /> :
+           modalContent === 'addColumn' ? <AddNewColumn /> :
            ''}
         </div>
       )}

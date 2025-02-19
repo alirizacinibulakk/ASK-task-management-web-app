@@ -119,7 +119,7 @@ export default function Header() {
             </div>
             <button
               onClick={() => {
-                setModalContent("addColumn");
+                setModalContent("addBoard");
                 setIsModalOpen(true);
               }}
             >
