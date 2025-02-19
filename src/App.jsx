@@ -7,6 +7,7 @@ import AddNewTask from './components/AddNewTask';
 export const DataContext = createContext(null);
 export const BoardContext = createContext(null);
 export const ModalContext = createContext(null);
+export const IsOpenContext = createContext(null);
 
 export default function App() {
 
@@ -14,6 +15,8 @@ export default function App() {
   const [ currentBoardId, setCurrentBoardId ] = useState(0);
   const [ modalContent, setModalContent ] = useState('');
   const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
 
   useEffect(() => {
     async function getData() {
@@ -29,8 +32,10 @@ export default function App() {
       <DataContext.Provider value={{ data, setData }}>
         <BoardContext.Provider value={{ currentBoardId, setCurrentBoardId }}>
           <ModalContext.Provider value={{ modalContent, setModalContent, isModalOpen, setIsModalOpen }}>
-            <Header />
-            <Container />
+            <IsOpenContext.Provider value={{ isOpen, setIsOpen }}>
+              <Header />
+              <Container />
+            </IsOpenContext.Provider>
           </ModalContext.Provider>
         </BoardContext.Provider>
       </DataContext.Provider>
