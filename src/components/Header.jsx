@@ -107,7 +107,7 @@ export default function Header() {
             </button>
             {modal ? (
               <div className="three-dot-modal">
-                <button>Edit Board</button>
+                <button onClick={() => {setIsModalOpen(true); setModalContent('editBoard')}}>Edit Board</button>
                 <button onClick={openDeleteModal}>Delete Board</button>
               </div>
             ) : null}
@@ -136,7 +136,7 @@ export default function Header() {
             </div>
             <button
               onClick={() => {
-                setModalContent("addColumn");
+                setModalContent("addBoard");
                 setIsModalOpen(true);
               }}
             >
