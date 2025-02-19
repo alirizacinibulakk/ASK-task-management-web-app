@@ -1,6 +1,6 @@
 import { useState } from "react";
 
- export default function AddBoard({ data, setData }) {
+export default function AddBoard({ data, setData }) {
   const [boardName, setBoardName] = useState("");
 
   function handleSubmit(e) {
@@ -16,7 +16,6 @@ import { useState } from "react";
         { id: 3, name: "Done", tasks: [] },
       ],
     };
-
     setData({ ...data, boards: [...data.boards, newBoard] });
     setBoardName("");
   }
@@ -25,15 +24,10 @@ import { useState } from "react";
     <div>
       <h2>Add New Board</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Board Name"
-          value={boardName}
-          onChange={(e) => setBoardName(e.target.value)}
-        />
+        <input type="text" placeholder="Board Name" value={boardName} onChange={(e) => setBoardName(e.target.value)} />
+        <br />
         <button type="submit">Create Board</button>
       </form>
     </div>
   );
 }
-
