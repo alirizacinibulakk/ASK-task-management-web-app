@@ -1,57 +1,33 @@
-import { useContext, useState } from "react";
-import { BoardContext, DataContext, ModalContext } from "../App";
+import { useState } from "react";
 
-export default function AddBoard({ }) {
-  const { data, setData } = useContext(DataContext);
-  const { setCurrentBoardId } = useContext(BoardContext);
-  const { setIsModalOpen } = useContext(ModalContext);
-
-  const [ newColumns, setNewColumns ] = useState([{ id: 0, name: '', tasks: []}]);
+export default function AddBoard({ data, setData }) {
+  const [boardName, setBoardName] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!e.target.boardName.value.trim()) return;
-
-    const newColumnsNames = newColumns.map((x, index) => (
-      { id: x.id, 
-        name: e.target.columnName.value ? e.target.columnName.value : e.target.columnName[index].value, 
-        tasks: [] 
-      }
-    ));
+    if (!boardName.trim()) return;
 
     const newBoard = {
-      id: data.boards[data.boards.length - 1].id + 1,
-      name: e.target.boardName.value,
-      columns: [...newColumnsNames],
+      id: Date.now(),
+      name: boardName,
+      columns: [
+        { id: 1, name: "Todo", tasks: [] },
+        { id: 2, name: "Doing", tasks: [] },
+        { id: 3, name: "Done", tasks: [] },
+      ],
     };
-
     setData({ ...data, boards: [...data.boards, newBoard] });
-    setCurrentBoardId(newBoard.id);
-    setIsModalOpen(false);
-  }
-
-  function handleClick(){
-    const newColumn = { id: newColumns[newColumns.length - 1].id + 1, name: '', tasks: [] };
-    setNewColumns([...newColumns, newColumn]);
+    setBoardName("");
   }
 
   return (
-    <div>
+    <div className="addBoard-container">
       <h2>Add New Board</h2>
       <form onSubmit={handleSubmit}>
-        <p>Name</p>
-        <input type="text" placeholder="e.g. Web Design" name="boardName" />
-        <div className="new-columns-input-container">
-          <p>Columns</p>
-          {newColumns.map(x => (
-            <div className="new-column-input" key={x.id}>
-              <input name="columnName" type="text" />
-              <img src="/images/deleteBtn.svg" />
-            </div>
-          ))}
-          <button type="button" onClick={handleClick}>+ Add New Column</button>
-        </div>
-        <button type="submit">Create New Board</button>
+        <input type="text" placeholder="Board Name" value={boardName} onChange={(e) => setBoardName(e.target.value)} />
+        <img src="/images/deleteBtn.svg" alt="" />
+        <br />
+        <button type="submit">Create Board</button>
       </form>
     </div>
   );
