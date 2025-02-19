@@ -1,15 +1,17 @@
 import { useState, useContext, useEffect } from "react";
-import { DataContext, BoardContext, ModalContext, IsOpenContext } from "../App";
+import { DataContext, BoardContext, ModalContext, IsOpenContext, ThemeContext } from "../App";
 
 export default function Header() {
   const { data, setData } = useContext(DataContext);
   const { isOpen, setIsOpen } = useContext(IsOpenContext);
-  const [modal, setModal] = useState(false);
-  const [theme, setTheme] = useState("light");
-  const [checked, setChecked] = useState(false);
-  const { currentBoardId, setCurrentBoardId } = useContext(BoardContext);
-  const [currentBoardName, setCurrentBoardName] = useState('');
   const { modalContent, setModalContent, isModalOpen, setIsModalOpen } = useContext(ModalContext);
+  const { currentBoardId, setCurrentBoardId } = useContext(BoardContext);
+  const {theme, setTheme} = useContext(ThemeContext);
+  const {checked, setChecked} = useContext(ThemeContext);
+  
+  
+  const [modal, setModal] = useState(false);
+  const [currentBoardName, setCurrentBoardName] = useState('');
   const [secreenSize, setScreenSize] = useState(window.innerWidth);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -39,13 +41,19 @@ export default function Header() {
     setIsOpen(false);
   }
 
-  function toggleTheme() {
-    if (theme === "dark") {
-      setTheme("light");
-      console.log("light");
+  useEffect(() => {
+    if (theme === "dark-mode") {
+      document.body.classList.add("dark-mode");
     } else {
-      setTheme("dark");
-      console.log("dark");
+      document.body.classList.remove("dark-mode");
+    }
+  },[theme]);
+
+  function toggleTheme() {
+    if (theme === "dark-mode") {
+      setTheme("");
+    } else {
+      setTheme("dark-mode");
     }
     setChecked(!checked);
   }
