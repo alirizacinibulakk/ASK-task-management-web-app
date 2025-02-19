@@ -183,7 +183,6 @@ header {
   .header-btn-right {
     margin-left: auto;
     display: flex;
-    gap: 16px;
     align-items: center;
 
     .plus-btn {
@@ -196,6 +195,10 @@ header {
       color: var(--white);
       border-radius: 24px;
       padding: 10px 18px;
+
+      &:hover {
+        background-color: var(--main-purple-hover);
+      }
 
       img {
         margin-right: 0;
@@ -261,6 +264,9 @@ header {
     &:hover {
       background-color: var(--light-gray);
       color: var(--main-purple);
+      path {
+        fill: var(--main-purple);
+      }
     }
 
     &.active {
@@ -272,7 +278,7 @@ header {
     }
   }
 
-  >button:last-of-type {
+  >button:nth-child(3) {
     color: var(--main-purple);
     margin-bottom: 16px;
     path {
@@ -291,6 +297,7 @@ header {
   padding: 14px 57px;
   background-color: var(--light-gray);
   margin-left: 16px;
+  border-radius: 6px;
 
   label {
     display: flex;
@@ -303,13 +310,16 @@ header {
   appearance: none;
   background-color: var(--main-purple);
   height: 20px;
-  width: 32px;
+  width: 40px;
   display: inline-flex;
   margin: 0;
   border-radius: 999px;
   box-sizing: border-box;
   padding: 4px;
   transition: all .8s ease-in-out;
+  &:hover {
+    background-color: var(--main-purple-hover);
+  }
 }
 
 .switch:after {
@@ -326,7 +336,7 @@ header {
 }
 
 .modal-container {
-  padding-right: 11px;
+  padding-right: 8px;
   position: relative;
 
   .dot-btn {
@@ -335,7 +345,7 @@ header {
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: 10px 5px;
+    padding: 10px 8px 10px 16px;
     display: flex;
     align-items: center;
 
@@ -521,6 +531,9 @@ body.dark-mode .task-detail-status .task-detail-trigger {
   margin-top: 39px;
   flex-shrink: 0;
   cursor: pointer;
+  &:hover {
+    background: var(--lines-light);
+  }
 }
 
 body.dark-mode .new-column {
@@ -883,6 +896,115 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
 /* sude end */
 
 @media only screen and (min-width: 768px) {
+  
+  /* ali start */
+
+  header hr {
+    width: 1px;
+    height: 100%; 
+    margin-inline: 0; 
+    border: none;
+    background-color: var(--lines-light);
+  }
+  header .header-logo {
+    padding: 24px 84px 24px 24px;
+  }
+
+  .toggle-menu-btn {
+    padding-inline: 24px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 25.2px;
+  }
+  
+  .plus-btn {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18.9px;
+  }
+
+  .sidebar-btn {
+    position: fixed;
+    bottom: 32px;
+    left: 0;
+    padding: 19px 22px 18px 18px;
+    border: none;
+    background-color: var(--main-purple);
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    cursor: pointer;
+  }
+
+  .boards-menu{
+    position: fixed;
+    top: 96px;
+    left: -262px;
+    height: calc(100vh - 96px);
+    background-color: var(--white);
+    padding-block: 16px;
+    padding-right: 24px;
+    border-right: 2px solid var(--lines-light);
+    margin-top: 0;
+    margin-left: 0;
+    border-radius: 0;
+    z-index: 2;
+    width: 262px;
+    padding-block: 0;
+    padding-top: 31px;
+    transition: left 0.5s ease;
+    animation: SlideLeft 0.5s ease;
+  }
+  
+  .boards-menu.open-side {
+    left: 0px;
+    animation: slideRight 0.5s ease;
+  }
+
+
+  .theme-container {
+    margin-top: auto;
+    margin-bottom: 16px;
+    margin-left: 12px;
+  }
+
+  .sidebar-off-btn {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18.9px;
+    margin-bottom: 32px;
+    padding: 0 ;
+  }
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(500px);
+    }
+    to {
+      transform: translateX(0px);
+    }
+    
+  }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(-261px);
+    }
+    to {
+      transform: translateX(0);
+    }
+  } 
+
+  .container {
+    transition: margin-left 0.5s ease;
+  }
+  
+  .container.shift-right {
+    margin-left: 262px;
+  }
+  
+  /* ali end */
+
+
 
   /* sude start */
 
