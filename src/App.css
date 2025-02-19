@@ -400,17 +400,16 @@ header {
 /* sude start */
 
 body.dark-mode,
-body.dark-mode .drop-down-menu-container.open-menu .drop-down-menu,
-body.dark-mode .task-detail-status.selecting .task-detail-options {
+body.dark-mode .drop-down-menu-container.open-menu .drop-down-menu{
   background-color: var(--very-dark-gray);
   box-shadow: 0px 10px 20px 0px #364e7e40;
+  transition: all 0.5s;
 }
 
-body.dark-mode,
-body.dark-mode .drop-down-menu-container.open-menu .drop-down-menu,
 body.dark-mode .task-detail-status.selecting .task-detail-options {
   background-color: var(--very-dark-gray);
-  box-shadow: 0px 10px 20px 0px #364e7e40;
+  transition: all 0.5s;
+  box-shadow: none;
 }
 
 .container {
@@ -786,7 +785,7 @@ body.dark-mode .task-detail-status .task-detail-trigger {
 
 .task-detail-status.selecting .task-detail-options {
   position: absolute;
-  top: 66px;
+  top: 73px;
   left: 0;
   background-color: var(--white);
   z-index: 3;
@@ -1003,7 +1002,6 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
   width: 100%;
   padding: 8px 16px;
   border-radius: 20px;
-  margin-top: 24px;
   color: var(--white);
   border: none;
   font-family: Plus Jakarta Sans;

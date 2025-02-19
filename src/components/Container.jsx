@@ -6,6 +6,7 @@ import DeleteModal from "./DeleteModal";
 import AddBoard from "./AddBoard";
 import AddNewTask from "./AddNewTask";
 import AddNewColumn from "./AddNewColumn";
+import EditBoard from "./EditBoard";
 
 export default function Container(){
 
@@ -74,6 +75,7 @@ export default function Container(){
            modalContent === 'delete' ? <DeleteModal task={selectedTask} setSelectedTask={setSelectedTask} setIsModalOpen={setIsModalOpen} /> :
            modalContent === 'add' ? <AddNewTask /> :
            modalContent === 'addBoard' ? <AddBoard /> :
+           modalContent === 'editBoard' ? <EditBoard /> :
            modalContent === 'addColumn' ? <AddNewColumn /> :
            ''}
         </div>
