@@ -1,20 +1,19 @@
 import { useState, useContext, useEffect } from "react";
-import { DataContext, BoardContext,ModalContext } from "../App";
+import { DataContext, BoardContext, ModalContext } from "../App";
 
 export default function Header() {
   const { data, setData } = useContext(DataContext);
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useState(false);
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState("light");
   const [checked, setChecked] = useState(false);
   const { currentBoardId, setCurrentBoardId } = useContext(BoardContext);
-  const [currentBoardName, setCurrentBoardName] = useState('');
-  const {modalContent, setModalContent, isModalOpen, setIsModalOpen} = useContext(ModalContext);
-
+  const [currentBoardName, setCurrentBoardName] = useState("");
+  const { modalContent, setModalContent, isModalOpen, setIsModalOpen } = useContext(ModalContext);
 
   useEffect(() => {
     if (data.boards && data.boards.length > 0) {
-      const currentBoard = data.boards.find(board => board.id === currentBoardId);
+      const currentBoard = data.boards.find((board) => board.id === currentBoardId);
       if (currentBoard) {
         setCurrentBoardName(currentBoard.name);
       }
@@ -31,17 +30,16 @@ export default function Header() {
     setIsOpen(false);
   }
 
-
   function toggleTheme() {
-    if (theme === 'dark') {
-      setTheme('light');
-      console.log("light")
+    if (theme === "dark") {
+      setTheme("light");
+      console.log("light");
     } else {
-      setTheme('dark');
-      console.log("dark")
+      setTheme("dark");
+      console.log("dark");
     }
     setChecked(!checked);
-    console.log(checked)
+    console.log(checked);
   }
 
   function openDeleteModal() {
@@ -60,18 +58,24 @@ export default function Header() {
           </svg>
         </button>
         <div className="header-btn-right">
-          <button onClick={() => {
-            setModalContent("add");
-            setIsModalOpen(true);
-          }} className="plus-btn"><img src="\images\+.svg" alt=""/></button>
+          <button
+            onClick={() => {
+              setModalContent("add");
+              setIsModalOpen(true);
+            }}
+            className="plus-btn"
+          >
+            <img src="\images\+.svg" alt="" />
+          </button>
           <div className="modal-container">
-            <button className="dot-btn" onClick={toggleModal}><img src="\images\three-dot.svg" alt="" /></button>
+            <button className="dot-btn" onClick={toggleModal}>
+              <img src="\images\three-dot.svg" alt="" />
+            </button>
             {modal ? (
               <div className="three-dot-modal">
                 <button>Edit Board</button>
                 <button onClick={openDeleteModal}>Delete Board</button>
               </div>
-
             ) : null}
           </div>
         </div>
@@ -82,29 +86,33 @@ export default function Header() {
           <div className="boards-menu">
             <h2>All Boards ({data.boards.length})</h2>
             <div className="boards">
-              {data.boards.map(board => (
-                <button key={board.id} className={currentBoardId === board.id ? 'active' : ''} onClick={() => setCurrentBoardId(board.id)}>
+              {data.boards.map((board) => (
+                <button
+                  key={board.id}
+                  className={currentBoardId === board.id ? "active" : ""}
+                  onClick={() => setCurrentBoardId(board.id)}
+                >
                   <img src="\images\fluent_board.svg" alt="" /> {board.name}
                 </button>
               ))}
             </div>
-            <button><img src="\images\fluent_board.svg" alt="" /> +Create New Board</button>
+            <button
+              onClick={() => {
+                setModalContent("addColumn");
+                setIsModalOpen(true);
+              }}
+            >
+              <img src="\images\fluent_board.svg" alt="" /> +Create New Board
+            </button>
             <div className="theme-container">
               <label className="theme-switch">
                 <img src="\images\light-theme.svg" alt="" />
-                <input
-                  id="modeSwitchBtn"
-                  className="switch"
-                  type="checkbox"
-                  checked={checked}
-                  onChange={toggleTheme}
-                />
+                <input id="modeSwitchBtn" className="switch" type="checkbox" checked={checked} onChange={toggleTheme} />
                 <img src="\images\dark-theme.svg" alt="" />
               </label>
             </div>
           </div>
         </div>
-
       ) : null}
     </>
   );
