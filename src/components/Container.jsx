@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { BoardContext, DataContext, IsOpenContext, ModalContext } from "../App"
+import { BoardContext, DataContext, IsOpenContext, ModalContext, ThemeContext } from "../App"
 import TaskDetails from "./TaskDetails";
 import EditTask from "./EditTask";
 import DeleteModal from "./DeleteModal";
@@ -13,6 +13,9 @@ export default function Container(){
   const { currentBoardId, setCurrentBoardId } = useContext(BoardContext);
   const { modalContent, setModalContent, isModalOpen, setIsModalOpen } = useContext(ModalContext);
   const { isOpen, setIsOpen } = useContext(IsOpenContext);
+
+  
+  
   
 
   const [ selectedTask, setSelectedTask ] = useState(null);
@@ -39,7 +42,7 @@ export default function Container(){
   }
 
   return(
-    <div className={`container ${isOpen ? 'shift-right' : ''}`}>
+  <div className={`container ${isOpen ? 'shift-right' : ''}`}>
       {data?.boards.find(x => x.id == currentBoardId).columns.length === 0 ? 
         <div className="empty-columns-screen">
           <p>This board is empty. Create a new column to get started.</p>

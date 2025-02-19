@@ -8,6 +8,7 @@ export const DataContext = createContext(null);
 export const BoardContext = createContext(null);
 export const ModalContext = createContext(null);
 export const IsOpenContext = createContext(null);
+export const ThemeContext = createContext(null);
 
 export default function App() {
 
@@ -16,6 +17,9 @@ export default function App() {
   const [ modalContent, setModalContent ] = useState('');
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [theme, setTheme] = useState("");
+  const [checked, setChecked] = useState(false);
+
 
 
   useEffect(() => {
@@ -33,8 +37,10 @@ export default function App() {
         <BoardContext.Provider value={{ currentBoardId, setCurrentBoardId }}>
           <ModalContext.Provider value={{ modalContent, setModalContent, isModalOpen, setIsModalOpen }}>
             <IsOpenContext.Provider value={{ isOpen, setIsOpen }}>
-              <Header />
-              <Container />
+              <ThemeContext.Provider value={{ theme, setTheme, checked, setChecked }}>
+                <Header />
+                <Container />
+              </ThemeContext.Provider>
             </IsOpenContext.Provider>
           </ModalContext.Provider>
         </BoardContext.Provider>
