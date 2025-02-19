@@ -387,11 +387,14 @@ body.dark-mode, body.dark-mode .drop-down-menu-container.open-menu .drop-down-me
 .container {
   padding: 24px 16px;
   overflow-x: auto;
+  height: calc(100vh - 96px);
+  min-height: 70vh;
 }
 
 .task-columns-container{
   display: flex;
   gap: 24px;
+  height: 100%;
 }
 
 .task-column h2 {
@@ -412,6 +415,18 @@ body.dark-mode .task-column h2, body.dark-mode .task-column-item p{
 
 body.dark-mode .task-column h2, body.dark-mode .task-column-item p{
   color: var(--medium-gray);
+}
+
+.task-column-container {
+  height: 100%;
+}
+
+.task-column-container .empty-task-column{
+  border: 2px dashed var(--lines-light);
+  display: flex;
+  width: 100%;
+  flex-grow: 1;
+  height: 100%;
 }
 
 .task-column h2 span {

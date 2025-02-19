@@ -44,17 +44,17 @@ export default function Container(){
         </div> : 
         <div className="task-columns-container">
           {data?.boards.find(x => x.id == currentBoardId).columns?.map(x => (
-          <div className="task-column" key={x.id}>
-            <h2><span></span> {x.name}({x.tasks.length})</h2>
-            <div className="task-column-container">
-              {x.tasks.map(x => (
-                <div className="task-column-item" key={x.id} onClick={() => handleClick(x)}>
-                  <h3>{x.title}</h3>
-                  <p>{x.subtasks.filter(x => x.isCompleted).length} of {x.subtasks.length} subtasks</p>
-                </div>
-              ))}
+            <div className="task-column" key={x.id}>
+              <h2><span></span> {x.name}({x.tasks.length})</h2>
+              <div className="task-column-container">
+                {x.tasks.length > 0 ? x.tasks.map(x => (
+                  <div className="task-column-item" key={x.id} onClick={() => handleClick(x)}>
+                    <h3>{x.title}</h3>
+                    <p>{x.subtasks.filter(x => x.isCompleted).length} of {x.subtasks.length} subtasks</p>
+                  </div>
+                )) : <div className="empty-task-column"></div> }
+              </div>
             </div>
-          </div>
           ))}
           <div onClick={addNewColumn} className="new-column">
             <p>+ New Column</p>
