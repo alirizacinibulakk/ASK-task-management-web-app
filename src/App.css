@@ -397,7 +397,7 @@ body.dark-mode .theme-container {
   background-color: var(--white);
   animation: fadeIn 0.4s ease;
   box-shadow: 0 0 8px #364e7e1a;
-  z-index: 999;
+  z-index: 4;
   button{
     border: none;
     background-color: transparent;

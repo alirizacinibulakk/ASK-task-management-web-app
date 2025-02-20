@@ -138,6 +138,9 @@ export default function Header() {
               onClick={() => {
                 setModalContent("addBoard");
                 setIsModalOpen(true);
+                if (isMobile) {
+                  setIsOpen(false);
+                }
               }}
             >
 
