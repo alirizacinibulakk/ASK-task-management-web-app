@@ -575,7 +575,8 @@ body.dark-mode .new-column {
 .task-details-container,
 .delete-modal-container,
 .editTask-container, 
-.addNewTask-container{
+.addNewTask-container,
+.addBoard-container{
   position: relative;
   top: 0;
   left: 0;
@@ -908,7 +909,8 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
 /* sude end */
 
 /* kerem start */
-.editTask-container {
+.editTask-container,
+.addBoard-container {
   overflow-y:scroll;
   h2 {
     font-family: Plus Jakarta Sans;
@@ -938,10 +940,13 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
     font-size: 13px;  
     line-height: 23px;
     text-align: left;
+    resize: none;
 }
 }
 .editTask-subtasksContainer,
-.addNew-subtasksContainer{
+.addNew-subtasksContainer,
+.addBoard-container,
+.addBoard-input-container{
   margin-block: 24px;
   display: grid;
   gap: 12px;
@@ -961,7 +966,8 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
     }
 }
 .editTask-subtask,
-.subtask-item{
+.subtask-item,
+.new-column-input{
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -985,7 +991,8 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
   }
 }
 .editTask-title-input,
-.addNewTask-title-input{
+.addNewTask-title-input,
+.addBoard-title-input{
   width: 100%;
   padding-block: 9px;
   padding-left: 16px;
@@ -1044,6 +1051,7 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
     font-size: 13px;  
     line-height: 23px;
     text-align: left;
+    resize: none;
 }
 }
 .select-status{
@@ -1070,6 +1078,9 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
   font-weight: 700;
   font-size: 13px;
   line-height: 23px;
+}
+.addBoard-input-container{
+  margin-block: 0;
 }
 /* kerem end */
 

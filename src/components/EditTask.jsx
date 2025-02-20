@@ -94,9 +94,7 @@ export default function EditTask({ task, setSelectedTask, setIsModalOpen }) {
           <h3>Description</h3>
           <textarea
             defaultValue={task.description}
-            placeholder="e.g. It’s always good to take a break. This 
-        15 minute break will  recharge the batteries 
-        a little."
+            placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
             name="description"
           />
         </div>

@@ -65,9 +65,7 @@ export default function AddNewTask() {
         <div className="addNew-description">
         <h3>Description</h3>
         <textarea
-          placeholder="e.g. It’s always good to take a break. This 
-15 minute break will  recharge the batteries 
-a little."
+          placeholder="e.g. It’s always good to take a break. This 15 minute break will  recharge the batteries a little."
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
