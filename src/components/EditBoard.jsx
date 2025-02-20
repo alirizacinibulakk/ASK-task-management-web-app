@@ -83,7 +83,7 @@ export default function EditBoard() {
       <form onSubmit={handleSubmit}>
         <h2>Edit Board</h2>
         <p>Board Name</p>
-        <input type="text" name="boardName" defaultValue={data.boards.find(x => x.id == currentBoardId).name} placeholder="e.g. Project Management" />
+        <input className="board-name-input" type="text" name="boardName" defaultValue={data.boards.find(x => x.id == currentBoardId).name} placeholder="e.g. Project Management" />
         <div className="new-columns-input-container">
             <p>Columns</p>
             {newData.boards.find(x => x.id == currentBoardId).columns.map(x => (
@@ -100,7 +100,7 @@ export default function EditBoard() {
             ))}
             <button type="button" onClick={handleClick}>+ Add New Column</button>
           </div>
-        <button type="submit">Save Changes</button>
+        <button className="save-btn" type="submit">Save Changes</button>
       </form>
     </div>
   );

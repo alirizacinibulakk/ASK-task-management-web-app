@@ -514,7 +514,9 @@ body.dark-mode .task-column-item p {
 
 body.dark-mode .task-column-item,
 body.dark-mode .task-details-container,
-body.dark-mode .delete-modal-container {
+body.dark-mode .delete-modal-container, body.dark-mode .editTask-container, 
+body.dark-mode .addNewTask-container,
+body.dark-mode .addBoard-container, body.dark-mode .edit-board-container, body.dark-mode .new-column-container {
   background-color: var(--dark-gray);
   box-shadow: 0px 4px 6px 0px #364e7e1a;
 }
@@ -535,7 +537,9 @@ body.dark-mode .delete-modal-container {
 body.dark-mode .task-column-item h3,
 body.dark-mode .task-details-container-top h2,
 body.dark-mode .task-details-subtask p,
-body.dark-mode .task-detail-status .task-detail-trigger {
+body.dark-mode .task-detail-status .task-detail-trigger, body.dark-mode .editTask-container h2, 
+body.dark-mode .addNewTask-container h2,
+body.dark-mode .addBoard-container h2, body.dark-mode .edit-board-container h2, body.dark-mode .new-column-container h2 {
   color: var(--white);
 }
 
@@ -598,7 +602,8 @@ body.dark-mode .new-column {
 .task-details-container,
 .delete-modal-container,
 .editTask-container, 
-.addNewTask-container{
+.addNewTask-container,
+.addBoard-container, .edit-board-container, .new-column-container{
   position: relative;
   top: 0;
   left: 0;
@@ -612,6 +617,7 @@ body.dark-mode .new-column {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   max-width: 480px;
   max-height: 80vh;
+  margin-inline: 16px;
 }
 
 .task-details-container-top {
@@ -622,13 +628,17 @@ body.dark-mode .new-column {
   margin-bottom: 24px;
 }
 
-.task-details-container-top h2 {
+.task-details-container-top h2, .edit-board-container h2, .new-column-container h2 {
   font-weight: 700;
   font-size: 18px;
   line-height: 22.68px;
   letter-spacing: 0px;
   color: var(--black);
 }
+
+.edit-board-container h2, .new-column-container h2 {
+  margin-bottom: 24px;
+} 
 
 .drop-down-menu-container {
   position: relative;
@@ -688,7 +698,7 @@ body.dark-mode .new-column {
   margin-bottom: 24px;
 }
 
-.task-details-subtasks-container h3 {
+.task-details-subtasks-container h3, .edit-board-container p, .new-column-container p {
   font-weight: 700;
   font-size: 12px;
   line-height: 15.12px;
@@ -878,6 +888,10 @@ body.dark-mode .task-detail-status .task-detail-trigger {
   cursor: pointer;
 }
 
+.edit-task-add-btn{
+  margin-bottom: 24px;
+}
+
 body.dark-mode .delete-modal-buttons button {
   background-color: var(--white);
 }
@@ -893,6 +907,14 @@ body.dark-mode .delete-modal-buttons button {
 
 body.dark-mode .delete-modal-buttons button.delete-btn {
   background-color: var(--red);
+}
+
+body.dark-mode .editTask-container input, 
+body.dark-mode .addNewTask-container input,
+body.dark-mode .addBoard-container input, body.dark-mode .edit-board-container input, body.dark-mode .new-column-container input, body.dark-mode textarea{
+  background-color: var(--dark-gray);
+  border-color: var(--lines-dark);
+  color: var(--white);
 }
 
 .empty-columns-screen {
@@ -928,11 +950,69 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
   cursor: pointer;
 }
 
+.edit-board-container input, .new-column-container input {  
+  width: 100%;
+  background-color: var(--white);
+  border: 1px solid var(--lines-light);
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 23px;
+  letter-spacing: 0px;
+  color: var(--black);
+  outline: none;
+}
+
+.edit-board-container .new-column-input{
+  margin-bottom: 12px;
+}
+
+.edit-board-container input.board-name-input, .new-column-container input{
+  margin-bottom: 24px;
+}
+
+.edit-board-container .new-column-input{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.new-column-container .new-column-container-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.edit-board-container button, .new-column-container-buttons button{
+  background-color: rgba(99, 95, 199, 0.1);
+  color: var(--main-purple);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: Plus Jakarta Sans;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 23px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.edit-board-container button.save-btn, .new-column-container-buttons button.save-btn{
+  background-color: var(--main-purple);
+  color: var(--white);
+}
+
+.new-column-container-buttons button{
+  margin-bottom: 0;
+}
+
 /* sude end */
 
 /* kerem start */
-.editTask-container {
-  overflow-y:scroll;
+.editTask-container,
+.addBoard-container {
+  overflow-y:auto;
   h2 {
     font-family: Plus Jakarta Sans;
     font-weight: 700;
@@ -961,10 +1041,14 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
     font-size: 13px;  
     line-height: 23px;
     text-align: left;
+    resize: none;
+    width: 100%;
 }
 }
 .editTask-subtasksContainer,
-.addNew-subtasksContainer{
+.addNew-subtasksContainer,
+.addBoard-container,
+.addBoard-input-container{
   margin-block: 24px;
   display: grid;
   gap: 12px;
@@ -984,7 +1068,8 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
     }
 }
 .editTask-subtask,
-.subtask-item{
+.subtask-item,
+.new-column-input{
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -1008,7 +1093,8 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
   }
 }
 .editTask-title-input,
-.addNewTask-title-input{
+.addNewTask-title-input,
+.addBoard-title-input{
   width: 100%;
   padding-block: 9px;
   padding-left: 16px;
@@ -1031,6 +1117,16 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
   font-weight: 700;
   font-size: 13px;
   line-height: 23px;
+  margin-top: 24px;
+}
+
+.task-detail-status button.task-detail-trigger{
+  margin-top: 0;
+}
+
+.editTask-container .editTask-subtask button{
+  padding: 0;
+  margin-left: 16px;
 }
 
 .editTask-description,
@@ -1067,6 +1163,8 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
     font-size: 13px;  
     line-height: 23px;
     text-align: left;
+    resize: none;
+    width: 100%;
 }
 }
 .select-status{
@@ -1093,6 +1191,16 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
   font-weight: 700;
   font-size: 13px;
   line-height: 23px;
+}
+.addBoard-input-container{
+  margin-block: 0;
+}
+
+.editTask-subtasksContainer{
+  margin-bottom: 0;
+}
+body.dark-mode .editTask-subtask button{
+  background-color: transparent;
 }
 /* kerem end */
 
@@ -1234,7 +1342,7 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
   }
 
   .task-details-container,
-  .delete-modal-container {
+  .delete-modal-container, .editTask-container, .addNewTask-container, .addBoard-container, .edit-board-container {
     width: 480px;
     padding: 32px;
   }
@@ -1361,6 +1469,12 @@ body.dark-mode .delete-modal-buttons button.delete-btn {
   body.dark-mode .delete-modal-buttons button.delete-btn:hover {
     background-color: var(--red-hover);
     transition: all 0.5s;
+  }
+
+  .new-column-container .new-column-container-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
   }
 
   /* sude end */

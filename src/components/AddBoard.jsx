@@ -1,23 +1,22 @@
 import { useContext, useState } from "react";
 import { BoardContext, DataContext, ModalContext } from "../App";
 
-export default function AddBoard({ }) {
+export default function AddBoard({}) {
   const { data, setData } = useContext(DataContext);
   const { setCurrentBoardId } = useContext(BoardContext);
   const { setIsModalOpen } = useContext(ModalContext);
 
-  const [ newColumns, setNewColumns ] = useState([{ id: 0, name: '', tasks: []}]);
+  const [newColumns, setNewColumns] = useState([{ id: 0, name: "", tasks: [] }]);
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!e.target.boardName.value.trim()) return;
 
-    const newColumnsNames = newColumns.map((x, index) => (
-      { id: x.id, 
-        name: e.target.columnName.value ? e.target.columnName.value : e.target.columnName[index].value, 
-        tasks: [] 
-      }
-    ));
+    const newColumnsNames = newColumns.map((x, index) => ({
+      id: x.id,
+      name: e.target.columnName.value ? e.target.columnName.value : e.target.columnName[index].value,
+      tasks: [],
+    }));
 
     const newBoard = {
       id: data.boards[data.boards.length - 1].id + 1,
@@ -30,29 +29,34 @@ export default function AddBoard({ }) {
     setIsModalOpen(false);
   }
 
-  function handleClick(){
-    const newColumn = { id: newColumns[newColumns.length - 1].id + 1, name: '', tasks: [] };
+  function handleClick() {
+    const newColumn = { id: newColumns[newColumns.length - 1].id + 1, name: "", tasks: [] };
     setNewColumns([...newColumns, newColumn]);
   }
-
   return (
-    <div>
-      <h2>Add New Board</h2>
-      <form onSubmit={handleSubmit}>
-        <p>Name</p>
-        <input type="text" placeholder="e.g. Web Design" name="boardName" />
-        <div className="new-columns-input-container">
-          <p>Columns</p>
-          {newColumns.map(x => (
-            <div className="new-column-input" key={x.id}>
-              <input name="columnName" type="text" />
-              <img src="/images/deleteBtn.svg" />
+    <form onSubmit={handleSubmit}>
+      <div className="editTask-container">
+        <h2>Add New Board</h2>
+        <h3>Board Name</h3>
+        <input className="editTask-title-input" type="text" placeholder="e.g. Web Design" name="boardName" />
+        <div className="editTask-subtasksContainer">
+          <h3>Board Columns</h3>
+          {newColumns.map((x) => (
+            <div className="editTask-subtask" key={x.id}>
+              <input name="subtaskTitle" type="text" />
+              <button>
+                <img src="/images/deleteBtn.svg" />
+              </button>
             </div>
           ))}
-          <button type="button" onClick={handleClick}>+ Add New Column</button>
+          <button type="button" onClick={handleClick}>
+            + Add New Column
+          </button>
         </div>
+        <div className="task-detail-status">
         <button type="submit">Create New Board</button>
-      </form>
-    </div>
+        </div>
+      </div>
+    </form>
   );
 }
