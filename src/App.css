@@ -216,6 +216,15 @@ body.dark-mode header {
   transition: all 0.5s;
 }
 
+.menu-arrow-up {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.menu-arrow-up.active {
+  transform: rotate(180deg);
+}
+
 .boards-menu-container {
   position: fixed;
   top: 96px;
