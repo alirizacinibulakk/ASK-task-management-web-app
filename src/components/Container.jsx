@@ -73,7 +73,7 @@ export default function Container(){
           {modalContent === 'detail' ? <TaskDetails task={selectedTask} setSelectedTask={setSelectedTask} setModalContent={setModalContent} /> :
            modalContent === 'edit' ? <EditTask task={selectedTask} setSelectedTask={setSelectedTask} setIsModalOpen={setIsModalOpen} /> : 
            modalContent === 'delete' ? <DeleteModal task={selectedTask} setSelectedTask={setSelectedTask} setIsModalOpen={setIsModalOpen} /> :
-           modalContent === 'add' ? <AddNewTask /> :
+           modalContent === 'add' ? <AddNewTask setSelectedTask={setSelectedTask} /> :
            modalContent === 'addBoard' ? <AddBoard /> :
            modalContent === 'editBoard' ? <EditBoard /> :
            modalContent === 'addColumn' ? <AddNewColumn /> :

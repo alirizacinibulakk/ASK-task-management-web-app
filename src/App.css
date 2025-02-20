@@ -213,6 +213,7 @@ body.dark-mode header {
   .toggle-menu-btn {
     color: var(--white);
   }
+  transition: all 0.5s;
 }
 
 .boards-menu-container {
@@ -317,6 +318,7 @@ body.dark-mode header {
 
 body.dark-mode .boards-menu {
   background-color: var(--dark-gray);
+  transition: all 0.5s;
 }
 
 body.dark-mode .theme-container {
@@ -429,7 +431,7 @@ body.dark-mode .drop-down-menu-container.open-menu .drop-down-menu{
   transition: all 0.5s;
 }
 
-body.dark-mode .task-detail-status.selecting .task-detail-options {
+body.dark-mode .task-detail-status.selecting .task-detail-options, body.dark-mode .form-actions.selecting .task-detail-options {
   background-color: var(--very-dark-gray);
   transition: all 0.5s;
   box-shadow: none;
@@ -546,8 +548,12 @@ body.dark-mode .addBoard-container h2, body.dark-mode .edit-board-container h2, 
 body.dark-mode .task-column-item h3,
 body.dark-mode .task-details-container-top h2,
 body.dark-mode .task-details-subtask p,
-body.dark-mode .task-detail-status .task-detail-trigger {
+body.dark-mode .task-detail-status .task-detail-trigger, body.dark-mode .form-actions .task-detail-trigger{
   color: var(--white);
+}
+
+body.dark-mode .form-actions .task-detail-trigger{
+  border-color: var(--lines-dark);
 }
 
 .task-column-item p {
@@ -618,6 +624,12 @@ body.dark-mode .new-column {
   max-width: 480px;
   max-height: 80vh;
   margin-inline: 16px;
+  min-width: 343px;
+  width: 100%;
+}
+
+.editTask-container{
+  margin: 0;
 }
 
 .task-details-container-top {
@@ -791,7 +803,7 @@ body.dark-mode .task-details-subtask p.completed {
   margin-bottom: 8px;
 }
 
-.task-detail-status .task-detail-trigger {
+.task-detail-status .task-detail-trigger, .form-actions .task-detail-trigger {
   width: 100%;
   border: 1px solid var(--lines-light);
   border-radius: 4px;
@@ -812,11 +824,15 @@ body.dark-mode .task-detail-status .task-detail-trigger {
   border: 1px solid var(--lines-dark);
 }
 
-.task-detail-status .task-detail-options {
+.task-detail-status .task-detail-options, .form-actions .task-detail-options {
   display: none;
 }
 
-.task-detail-status.selecting .task-detail-options {
+.form-actions{
+  position: relative;
+}
+
+.task-detail-status.selecting .task-detail-options, .form-actions.selecting .task-detail-options {
   position: absolute;
   top: 73px;
   left: 0;
@@ -835,11 +851,11 @@ body.dark-mode .task-detail-status .task-detail-trigger {
   transition: transform 0.3s ease-in-out;
 }
 
-.task-detail-status.selecting .task-detail-trigger img {
+.task-detail-status.selecting .task-detail-trigger img, .form-actions.selecting .task-detail-trigger img {
   transform: rotate(180deg);
 }
 
-.task-detail-status .task-detail-options p {
+.task-detail-status .task-detail-options p, .form-actions .task-detail-options p {
   font-weight: 500;
   font-size: 13px;
   line-height: 23px;
@@ -1077,9 +1093,11 @@ body.dark-mode .addBoard-container input, body.dark-mode .edit-board-container i
     width: 100%;
   }
   button{
-    background-color: var(--white);
+    background-color: transparent;
     border: none;
-  }
+    padding: 0;
+    padding-left: 16px; 
+   }
   input{
     padding-block: 9px;
     padding-left: 16px;
@@ -1134,7 +1152,7 @@ body.dark-mode .addBoard-container input, body.dark-mode .edit-board-container i
   margin-top: 24px;
 }
 .addNewTask-container{
-  overflow-y:scroll;
+  overflow-y:auto;
   h2 {
     font-family: Plus Jakarta Sans;
     font-weight: 700;
@@ -1444,7 +1462,7 @@ body.dark-mode .editTask-subtask button{
     transition: all 0.5s;
   }
 
-  body.dark-mode .task-detail-status .task-detail-options p:hover {
+  body.dark-mode .task-detail-status .task-detail-options p:hover, body.dark-mode .drop-down-menu p:hover {
     font-weight: 700;
     color: var(--white);
     transition: all 0.5s;

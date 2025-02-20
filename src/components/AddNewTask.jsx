@@ -1,12 +1,16 @@
 import { useContext, useState } from "react";
-import { DataContext } from "../App";
+import { BoardContext, DataContext } from "../App";
 
 export default function AddNewTask() {
   const { data, setData } = useContext(DataContext);
+  const { currentBoardId } = useContext(BoardContext);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [subtasks, setSubtasks] = useState([""]);
   const [status, setStatus] = useState("Todo");
+  const [ isSelecting, setIsSelecting ] = useState(false);
+  const [ taskStatus, setTaskStatus ] = useState(data.boards.find(x => x.id == currentBoardId).columns[0].name);
 
   function handleAddSubtask() {
     setSubtasks([...subtasks, ""]);
@@ -30,7 +34,7 @@ export default function AddNewTask() {
       id: Date.now(),
       title,
       description,
-      status,
+      status: taskStatus,
       subtasks: subtasks.map((sub) => ({ title: sub, isCompleted: false })),
     };
 
@@ -48,6 +52,15 @@ export default function AddNewTask() {
     setTitle("");
     setDescription("");
     setSubtasks([""]);
+  }
+
+  function handleClick(status){
+    setTaskStatus(status);
+    setIsSelecting(false)
+  }
+
+  function triggerMenu(){
+    setIsSelecting(!isSelecting);
   }
 
   return (
@@ -89,15 +102,14 @@ export default function AddNewTask() {
           + Add New Subtask
         </button>
         </div>
-        <div className="form-actions">
+        <div className={`form-actions ${isSelecting ? 'selecting' : ''}`}>
           <h3>Status</h3>
-        <select value={status} onChange={(e) => setStatus(e.target.value)} className="select-status">
-          {data.boards[0].columns.map((col) => (
-            <option key={col.id} value={col.name}>
-              {col.name}
-            </option>
-          ))}
-        </select>
+          <button onClick={triggerMenu} className={`task-detail-trigger ${isSelecting ? 'selecting' : ''}`}>{taskStatus} <img src="/images/arrow-down.svg" alt="Icon" /></button>
+            <div className="task-detail-options">
+              {data.boards.find(x => x.id == currentBoardId).columns.map(x => x.name).map((x, index) => (
+                <p onClick={() => handleClick(x)} key={index}>{x}</p>
+              ))}
+            </div>
           <button type="submit" className="addNewTask-createTask">
             Create Task
           </button>
