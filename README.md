@@ -36,7 +36,7 @@ A task management application developed with modern web technologies using Kanba
 
 ```bash
 # Clone the repository
-git clone [https://github.com/alirizacinibulakk/ASK-task-management-web-app.git](https://github.com/alirizacinibulakk/ASK-task-management-web-app.git)
+git clone https://github.com/alirizacinibulakk/ASK-task-management-web-app.git
 
 # Install dependencies
 npm install
