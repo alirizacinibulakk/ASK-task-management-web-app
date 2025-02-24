@@ -49,7 +49,7 @@ npm run build
 ```
 
 ### Live Demo
-[Demo Link](https://kanban-task-management-web-app-7g3e.vercel.app)
+[Demo Link](https://kanban-task-management-web-app-jet.vercel.app/)
 
 ### Contact
 [GitHub](https://github.com/alirizacinibulakk)
